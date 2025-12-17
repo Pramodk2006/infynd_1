@@ -63,13 +63,33 @@ See [FULL_SETUP.md](FULL_SETUP.md) for detailed step-by-step instructions.
 
 ## 📦 Installation
 
-### 1. Backend Setup
+### 1. Clone & Setup Virtual Environment (Recommended)
+
+**Create virtual environment:**
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd infynd-hackathon-project
+
+# Create virtual environment
+python -m venv venv
+
+# Activate it
+# Windows:
+venv\Scripts\activate
+
+# macOS/Linux:
+source venv/bin/activate
+```
+
+### 2. Backend Setup
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Frontend Setup
+### 3. Frontend Setup
 
 ```bash
 cd frontend
@@ -77,7 +97,7 @@ npm install
 cd ..
 ```
 
-### 3. Verify Setup
+### 4. Verify Setup
 
 ```bash
 python verify_setup.py
@@ -333,6 +353,8 @@ This is a hackathon project. Key areas for improvement:
 ## 📝 License
 
 MIT License - feel free to use for your projects!
-#   i n f y n d _ 1  
- #   i n f y n d _ 1  
+#   i n f y n d _ 1 
+ 
+ #   i n f y n d _ 1 
+ 
  
