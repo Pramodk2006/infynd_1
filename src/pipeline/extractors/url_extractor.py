@@ -65,12 +65,15 @@ class URLExtractor(ExtractorStrategy):
         max_pages = kwargs.get('max_pages', 50)
         timeout = kwargs.get('timeout', 10)
         
+        # Remove from kwargs to avoid duplicate argument errors
+        kwargs_clean = {k: v for k, v in kwargs.items() if k not in ['crawl_mode', 'max_pages', 'timeout']}
+        
         if crawl_mode == 'summary':
             # Extract from starting page and key summary pages
-            return self._extract_summary(source, company, timeout, **kwargs)
+            return self._extract_summary(source, company, timeout, **kwargs_clean)
         else:
             # Full site crawl
-            return self._extract_full(source, company, max_pages, timeout, **kwargs)
+            return self._extract_full(source, company, max_pages, timeout, **kwargs_clean)
     
     def _extract_summary(self, url: str, company: str, timeout: int, **kwargs) -> Optional[Document]:
         """

@@ -121,10 +121,14 @@ def extract_single():
     """Start a new extraction from a single source"""
     try:
         data = request.json
+        print(f"[DEBUG] Received extraction request: {data}")
+        
         company = data.get("company")
         source = data.get("source")
         crawl_mode = data.get("crawlMode", "summary")
-        max_pages = data.get("maxPages", 50)
+        max_pages = int(data.get("maxPages", 50))  # Convert to int
+        
+        print(f"[DEBUG] Params: company={company}, source={source}, mode={crawl_mode}, max={max_pages}")
 
         if not company or not source:
             return jsonify({"error": "Missing required fields: company, source"}), 400
@@ -133,6 +137,8 @@ def extract_single():
         extractor = factory.get_extractor(source)
         if not extractor:
             return jsonify({"error": f"No extractor found for source: {source}"}), 400
+
+        print(f"[DEBUG] Using extractor: {extractor.__class__.__name__}")
 
         # Extract document
         options = {
@@ -145,18 +151,21 @@ def extract_single():
             return jsonify({"error": "Extraction failed"}), 500
 
         # Save to storage
-        filepath = store.save(document, company)
+        filepath = store.save(document)
 
         return jsonify({
             "success": True,
             "document_id": document.document_id,
             "company": company,
-            "source_type": document.source.source_type,
+            "source_type": document.source.type,
             "filepath": str(filepath),
             "message": f"Successfully extracted from {source}",
         })
 
     except Exception as e:
+        print(f"[ERROR] Extraction failed: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
 
@@ -195,7 +204,7 @@ def extract_batch():
                 document = extractor.extract(source_value, company, **options)
 
                 if document:
-                    filepath = store.save(document, company)
+                    filepath = store.save(document)
                     results["success"].append({
                         "source": source_value,
                         "document_id": document.document_id,

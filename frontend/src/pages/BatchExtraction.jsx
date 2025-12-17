@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layers, Plus, X, Upload } from 'lucide-react';
+import { extractionAPI } from '../services/api';
 
 const BatchExtraction = () => {
   const navigate = useNavigate();
@@ -28,17 +29,25 @@ const BatchExtraction = () => {
     setLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const result = await extractionAPI.batch({
+        company,
+        sources: sources.map(s => ({ value: s.value })),
+        crawlMode,
+      });
       
-      // In production:
-      // await extractionAPI.batch({ company, sources, crawlMode });
+      const successCount = result.successful || 0;
+      const failedCount = result.failed || 0;
       
-      alert(`Batch extraction started for ${company} with ${sources.length} sources!`);
+      if (successCount > 0) {
+        alert(`Batch extraction completed!\n✅ Success: ${successCount}\n❌ Failed: ${failedCount}`);
+      } else {
+        alert(`Batch extraction failed!\nAll ${failedCount} sources failed to extract.`);
+      }
+      
       navigate('/');
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to start batch extraction');
+      alert(error.response?.data?.error || 'Failed to start batch extraction');
     } finally {
       setLoading(false);
     }

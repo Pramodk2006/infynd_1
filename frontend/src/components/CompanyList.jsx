@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, RefreshCw } from 'lucide-react';
 import CompanyCard from './CompanyCard';
-import { mockAPI } from '../services/api';
+import { companyAPI } from '../services/api';
 
 const CompanyList = () => {
   const [companies, setCompanies] = useState([]);
@@ -27,13 +27,13 @@ const CompanyList = () => {
   const loadCompanies = async () => {
     setLoading(true);
     try {
-      // Using mock data for now
-      // In production, use: const data = await companyAPI.getAll();
-      const data = mockAPI.companies;
+      const data = await companyAPI.getAll();
       setCompanies(data);
       setFilteredCompanies(data);
     } catch (error) {
       console.error('Error loading companies:', error);
+      setCompanies([]);
+      setFilteredCompanies([]);
     } finally {
       setLoading(false);
     }

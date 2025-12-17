@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FileText, Download, Eye, Calendar, Tag } from 'lucide-react';
-import ReactJson from 'react-json-view';
 import { format } from 'date-fns';
 
 const SourceViewer = ({ source, documentData }) => {
@@ -105,15 +104,9 @@ const SourceViewer = ({ source, documentData }) => {
 
           {showJson && (
             <div className="mt-4 p-4 bg-gray-50 rounded-lg overflow-auto max-h-96">
-              <ReactJson
-                src={documentData}
-                theme="rjv-default"
-                collapsed={2}
-                displayDataTypes={false}
-                displayObjectSize={true}
-                enableClipboard={true}
-                name="document"
-              />
+              <pre className="text-xs text-gray-800 whitespace-pre-wrap">
+                {JSON.stringify(documentData, null, 2)}
+              </pre>
             </div>
           )}
         </div>

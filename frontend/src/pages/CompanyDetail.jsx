@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Building2, Calendar, FileText, ExternalLink } from 'lucide-react';
 import { format } from 'date-fns';
 import SourceViewer from '../components/SourceViewer';
-import { mockAPI } from '../services/api';
+import { companyAPI, sourceAPI } from '../services/api';
 
 const CompanyDetail = () => {
   const { companyName } = useParams();
@@ -11,17 +11,36 @@ const CompanyDetail = () => {
   const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSource, setSelectedSource] = useState(null);
+  const [documentData, setDocumentData] = useState(null);
+  const [loadingDocument, setLoadingDocument] = useState(false);
 
   useEffect(() => {
     loadCompanyDetails();
   }, [companyName]);
 
+  useEffect(() => {
+    if (selectedSource !== null && company?.sources[selectedSource]) {
+      loadDocumentData(company.sources[selectedSource].document_id);
+    }
+  }, [selectedSource, company]);
+
+  const loadDocumentData = async (documentId) => {
+    setLoadingDocument(true);
+    setDocumentData(null);
+    try {
+      const data = await sourceAPI.getDocument(documentId);
+      setDocumentData(data);
+    } catch (error) {
+      console.error('Error loading document:', error);
+    } finally {
+      setLoadingDocument(false);
+    }
+  };
+
   const loadCompanyDetails = async () => {
     setLoading(true);
     try {
-      // Using mock data for now
-      // In production: const data = await companyAPI.getByName(companyName);
-      const data = mockAPI.companyDetails;
+      const data = await companyAPI.getByName(decodeURIComponent(companyName));
       setCompany(data);
       if (data.sources && data.sources.length > 0) {
         setSelectedSource(0);
@@ -134,19 +153,22 @@ const CompanyDetail = () => {
       </div>
 
       {selectedSource !== null && company.sources[selectedSource] && (
-        <SourceViewer
-          source={company.sources[selectedSource]}
-          documentData={{
-            content: {
-              raw_text: 'Sample extracted text content...',
-              chunks: [{ chunk_id: '1', text: 'Sample chunk' }],
-              structured: {
-                headings: [{ tag: 'h1', text: 'Sample Heading' }],
-                paragraphs: ['Sample paragraph 1', 'Sample paragraph 2'],
-              },
-            },
-          }}
-        />
+        <div>
+          {loadingDocument ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+          ) : documentData ? (
+            <SourceViewer
+              source={company.sources[selectedSource]}
+              documentData={documentData}
+            />
+          ) : (
+            <div className="text-center py-12 text-gray-500">
+              Failed to load document data
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

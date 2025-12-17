@@ -28,16 +28,16 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/extract/new"
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition ${isActive('/extract/new')} hover:bg-blue-700`}
+              to="/extract"
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition ${isActive('/extract')} hover:bg-blue-700`}
             >
               <PlusCircle size={18} />
               <span>New Extraction</span>
             </Link>
 
             <Link
-              to="/extract/batch"
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition ${isActive('/extract/batch')} hover:bg-blue-700`}
+              to="/batch"
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition ${isActive('/batch')} hover:bg-blue-700`}
             >
               <Layers size={18} />
               <span>Batch Extract</span>

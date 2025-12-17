@@ -16,8 +16,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/company/:companyName" element={<CompanyDetail />} />
-            <Route path="/extract/new" element={<NewExtraction />} />
-            <Route path="/extract/batch" element={<BatchExtraction />} />
+            <Route path="/extract" element={<NewExtraction />} />
+            <Route path="/batch" element={<BatchExtraction />} />
           </Routes>
         </main>
       </div>

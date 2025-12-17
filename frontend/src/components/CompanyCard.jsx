@@ -28,7 +28,7 @@ const CompanyCard = ({ company }) => {
           <div className="flex items-center text-gray-600">
             <FileText size={18} className="mr-2 text-blue-500" />
             <span className="text-sm">
-              <span className="font-semibold text-gray-900">{company.sources}</span> {company.sources === 1 ? 'source' : 'sources'}
+              <span className="font-semibold text-gray-900">{company.totalSources || 0}</span> {(company.totalSources === 1) ? 'source' : 'sources'}
             </span>
           </div>
 

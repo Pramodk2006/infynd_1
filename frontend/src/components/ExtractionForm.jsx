@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Upload, Link as LinkIcon, FileText, File } from 'lucide-react';
+import { extractionAPI } from '../services/api';
 
 const ExtractionForm = ({ mode = 'single' }) => {
   const navigate = useNavigate();
@@ -20,16 +21,17 @@ const ExtractionForm = ({ mode = 'single' }) => {
     setLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const result = await extractionAPI.extract({
+        company: formData.company,
+        source: formData.source,
+        crawlMode: formData.crawlMode,
+        maxPages: formData.maxPages,
+      });
       
-      // In production, call the API:
-      // await extractionAPI.extract(formData);
-      
-      alert(`Extraction started successfully for ${formData.company}!`);
+      alert(`Extraction successful! Document ID: ${result.document_id}`);
       navigate('/');
     } catch (err) {
-      setError(err.message || 'Failed to start extraction');
+      setError(err.response?.data?.error || err.message || 'Failed to start extraction');
     } finally {
       setLoading(false);
     }
