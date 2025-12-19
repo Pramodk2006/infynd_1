@@ -4,10 +4,11 @@
 
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 10000, // 10 second timeout
   headers: {
     'Content-Type': 'application/json',
   },
@@ -23,9 +24,9 @@ export const companyAPI = {
     return response.data;
   },
 
-  // Get company details
+  // Get company details (skip enhanced extraction by default for fast loading)
   getByName: async (name) => {
-    const response = await api.get(`/companies/${encodeURIComponent(name)}`);
+    const response = await api.get(`/companies/${encodeURIComponent(name)}?enhanced=false`);
     return response.data;
   },
 

@@ -1,0 +1,162 @@
+{
+  "company": "2",
+  "top_sectors": [
+    {
+      "label": "Information Technology",
+      "score": 0.1556,
+      "rank": 1
+    },
+    {
+      "label": "Professional Services",
+      "score": 0.1197,
+      "rank": 2
+    },
+    {
+      "label": "Financial Services",
+      "score": 0.1143,
+      "rank": 3
+    },
+    {
+      "label": "Public Sector & Government",
+      "score": 0.1053,
+      "rank": 4
+    },
+    {
+      "label": "Consumer Goods & Services",
+      "score": 0.0907,
+      "rank": 5
+    }
+  ],
+  "top_industries": [
+    {
+      "label": "IT Services & Support",
+      "sector": "Information Technology",
+      "score": 0.1832,
+      "rank": 1
+    },
+    {
+      "label": "Information Services",
+      "sector": "Information Technology",
+      "score": 0.1533,
+      "rank": 2
+    },
+    {
+      "label": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1414,
+      "rank": 3
+    },
+    {
+      "label": "Information Technology (IT)",
+      "sector": "Information Technology",
+      "score": 0.1407,
+      "rank": 4
+    },
+    {
+      "label": "Customer Support Services",
+      "sector": "Professional Services",
+      "score": 0.1353,
+      "rank": 5
+    }
+  ],
+  "top_subindustries": [
+    {
+      "label": "Managed Service",
+      "industry": "IT Services & Support",
+      "sector": "Information Technology",
+      "score": 0.1927,
+      "sic_code": "62020",
+      "sic_description": "Information technology consultancy activities",
+      "rank": 1
+    },
+    {
+      "label": "IT",
+      "industry": "IT Services & Support",
+      "sector": "Information Technology",
+      "score": 0.1889,
+      "sic_code": "62020",
+      "sic_description": "Information technology consultancy activities",
+      "rank": 2
+    },
+    {
+      "label": "Information Services",
+      "industry": "Information Services",
+      "sector": "Information Technology",
+      "score": 0.1885,
+      "sic_code": "63990",
+      "sic_description": "Other information service activities n.e.c.",
+      "rank": 3
+    },
+    {
+      "label": "Technology",
+      "industry": "IT Services & Support",
+      "sector": "Information Technology",
+      "score": 0.1883,
+      "sic_code": "62090",
+      "sic_description": "Other information technology service activities",
+      "rank": 4
+    },
+    {
+      "label": "Hardware Software & Services",
+      "industry": "IT Services & Support",
+      "sector": "Information Technology",
+      "score": 0.1661,
+      "sic_code": "62090",
+      "sic_description": "Other information technology service activities",
+      "rank": 5
+    },
+    {
+      "label": "Corporate IT",
+      "industry": "IT Services & Support",
+      "sector": "Information Technology",
+      "score": 0.1656,
+      "sic_code": "62020",
+      "sic_description": "Information technology consultancy activities",
+      "rank": 6
+    },
+    {
+      "label": "Database Services",
+      "industry": "IT Services & Support",
+      "sector": "Information Technology",
+      "score": 0.1624,
+      "sic_code": "63110",
+      "sic_description": "Data processing, hosting and related activities",
+      "rank": 7
+    },
+    {
+      "label": "Software Development",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1543,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 8
+    },
+    {
+      "label": "Custom Software",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1537,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 9
+    },
+    {
+      "label": "Software & Services",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1509,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 10
+    }
+  ],
+  "final_prediction": {
+    "sector": "Information Technology",
+    "industry": "IT Services & Support",
+    "sub_industry": "Managed Service",
+    "sic_code": "62020",
+    "sic_description": "Information technology consultancy activities",
+    "confidence": 0.174
+  }
+}

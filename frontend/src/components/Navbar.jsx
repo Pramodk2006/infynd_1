@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Database, PlusCircle, Layers } from 'lucide-react';
+import { Database, PlusCircle, Layers, FileText } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -25,6 +25,14 @@ const Navbar = () => {
             >
               <Layers size={18} />
               <span>Dashboard</span>
+            </Link>
+
+            <Link
+              to="/summaries"
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition ${isActive('/summaries')} hover:bg-blue-700`}
+            >
+              <FileText size={18} />
+              <span>Summaries</span>
             </Link>
 
             <Link

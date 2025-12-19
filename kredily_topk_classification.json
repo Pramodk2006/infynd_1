@@ -1,0 +1,142 @@
+{
+  "company": "kredily",
+  "top_sectors": [
+    {
+      "label": "Information Technology",
+      "score": 0.0353,
+      "rank": 1
+    }
+  ],
+  "top_industries": [
+    {
+      "label": "Information Technology (IT)",
+      "sector": "Information Technology",
+      "score": 0.0933,
+      "rank": 1
+    },
+    {
+      "label": "Data Analytics",
+      "sector": "Information Technology",
+      "score": 0.0715,
+      "rank": 2
+    },
+    {
+      "label": "Cloud Services",
+      "sector": "Information Technology",
+      "score": 0.0696,
+      "rank": 3
+    },
+    {
+      "label": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.0672,
+      "rank": 4
+    },
+    {
+      "label": "AI Development",
+      "sector": "Information Technology",
+      "score": 0.0307,
+      "rank": 5
+    }
+  ],
+  "top_subindustries": [
+    {
+      "label": "App Development",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1628,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 1
+    },
+    {
+      "label": "Custom Software",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1509,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 2
+    },
+    {
+      "label": "Computer Aided Design",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1196,
+      "sic_code": "62090",
+      "sic_description": "Other information technology service activities",
+      "rank": 3
+    },
+    {
+      "label": "Track Trace Software",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1067,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 4
+    },
+    {
+      "label": "Data Security Software Products",
+      "industry": "Information Technology (IT)",
+      "sector": "Information Technology",
+      "score": 0.1054,
+      "sic_code": "62090",
+      "sic_description": "Other information technology service activities",
+      "rank": 5
+    },
+    {
+      "label": "Business and Domestic Software",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1042,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 6
+    },
+    {
+      "label": "Mobile App Development/Software Companies",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1032,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 7
+    },
+    {
+      "label": "Mobile Games",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1022,
+      "sic_code": "62011",
+      "sic_description": "Ready-made interactive leisure and entertainment software development",
+      "rank": 8
+    },
+    {
+      "label": "Web Application Development",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.0997,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 9
+    },
+    {
+      "label": "Computer Systems & Software (Development)",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.0982,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 10
+    }
+  ],
+  "final_prediction": {
+    "sector": "Information Technology",
+    "industry": "Information Technology (IT)",
+    "sub_industry": "App Development",
+    "sic_code": "62012",
+    "sic_description": "Business and domestic software development",
+    "confidence": 0.084
+  }
+}

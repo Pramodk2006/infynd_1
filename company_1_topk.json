@@ -1,0 +1,162 @@
+{
+  "company": "1",
+  "top_sectors": [
+    {
+      "label": "Information Technology",
+      "score": 0.1548,
+      "rank": 1
+    },
+    {
+      "label": "Financial Services",
+      "score": 0.1192,
+      "rank": 2
+    },
+    {
+      "label": "Professional Services",
+      "score": 0.1182,
+      "rank": 3
+    },
+    {
+      "label": "Consumer Goods & Services",
+      "score": 0.075,
+      "rank": 4
+    },
+    {
+      "label": "Real Estate",
+      "score": 0.0305,
+      "rank": 5
+    }
+  ],
+  "top_industries": [
+    {
+      "label": "Compliance Services & Software",
+      "sector": "Professional Services",
+      "score": 0.1731,
+      "rank": 1
+    },
+    {
+      "label": "Information Services",
+      "sector": "Information Technology",
+      "score": 0.145,
+      "rank": 2
+    },
+    {
+      "label": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1292,
+      "rank": 3
+    },
+    {
+      "label": "Information Technology (IT)",
+      "sector": "Information Technology",
+      "score": 0.1286,
+      "rank": 4
+    },
+    {
+      "label": "Facilities Management",
+      "sector": "Professional Services",
+      "score": 0.1233,
+      "rank": 5
+    }
+  ],
+  "top_subindustries": [
+    {
+      "label": "Building Services",
+      "industry": "Facilities Management",
+      "sector": "Professional Services",
+      "score": 0.1505,
+      "sic_code": "81100",
+      "sic_description": "Combined facilities support activities",
+      "rank": 1
+    },
+    {
+      "label": "Information Services",
+      "industry": "Information Services",
+      "sector": "Information Technology",
+      "score": 0.1469,
+      "sic_code": "63990",
+      "sic_description": "Other information service activities n.e.c.",
+      "rank": 2
+    },
+    {
+      "label": "Compliance Management System",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1453,
+      "sic_code": "70229",
+      "sic_description": "Management consultancy activities other than financial management",
+      "rank": 3
+    },
+    {
+      "label": "Software Development",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1305,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 4
+    },
+    {
+      "label": "Pallet Management Software",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1285,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 5
+    },
+    {
+      "label": "Facilities Services",
+      "industry": "Facilities Management",
+      "sector": "Professional Services",
+      "score": 0.1282,
+      "sic_code": "81100",
+      "sic_description": "Combined facilities support activities",
+      "rank": 6
+    },
+    {
+      "label": "Document Management",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1266,
+      "sic_code": "82190",
+      "sic_description": "Photocopying, document preparation and other specialised office support activities",
+      "rank": 7
+    },
+    {
+      "label": "Content Management",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1246,
+      "sic_code": "62012",
+      "sic_description": "Business and domestic software development",
+      "rank": 8
+    },
+    {
+      "label": "Project Management Software & Services",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1246,
+      "sic_code": "62020",
+      "sic_description": "Information technology consultancy activities",
+      "rank": 9
+    },
+    {
+      "label": "Document Management Services",
+      "industry": "Software Development & Services",
+      "sector": "Information Technology",
+      "score": 0.1234,
+      "sic_code": "82190",
+      "sic_description": "Photocopying, document preparation and other specialised office support activities",
+      "rank": 10
+    }
+  ],
+  "final_prediction": {
+    "sector": "Information Technology",
+    "industry": "Compliance Services & Software",
+    "sub_industry": "Building Services",
+    "sic_code": "81100",
+    "sic_description": "Combined facilities support activities",
+    "confidence": 0.161
+  }
+}

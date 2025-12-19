@@ -12,6 +12,10 @@ Flask==3.1.0
 Flask-CORS==5.0.0
 Werkzeug==3.1.3
 
+# Classification & ML
+scikit-learn==1.3.2
+pandas==2.1.4
+
 # Utility libraries
 filetype==1.2.0
 python-dateutil==2.9.0.post0
@@ -19,4 +23,5 @@ requests==2.32.3
 
 # Optional for advanced features
 # pdfplumber>=0.11.0  # Alternative PDF extractor
-# ollama>=0.1.0  # For future LLM integration
+ollama>=0.1.0  # Ollama LLM integration
+numpy>=1.24.0  # For embeddings

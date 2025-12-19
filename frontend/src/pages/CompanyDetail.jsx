@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Building2, Calendar, FileText, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Building2, Calendar, FileText, ExternalLink, TrendingUp, Sparkles } from 'lucide-react';
 import { format } from 'date-fns';
 import SourceViewer from '../components/SourceViewer';
 import { companyAPI, sourceAPI } from '../services/api';
@@ -13,9 +13,12 @@ const CompanyDetail = () => {
   const [selectedSource, setSelectedSource] = useState(null);
   const [documentData, setDocumentData] = useState(null);
   const [loadingDocument, setLoadingDocument] = useState(false);
+  const [summaryStatus, setSummaryStatus] = useState('not_started');
 
   useEffect(() => {
     loadCompanyDetails();
+    // Check summary status in background, don't block UI
+    setTimeout(() => checkSummaryStatus(), 100);
   }, [companyName]);
 
   useEffect(() => {
@@ -49,6 +52,71 @@ const CompanyDetail = () => {
       console.error('Error loading company details:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const checkSummaryStatus = async () => {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1000); // 1 second timeout
+
+      const response = await fetch(`http://localhost:5000/api/companies/${companyName}/enhanced/status`, {
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        const data = await response.json();
+        setSummaryStatus(data.status || 'not_started');
+      }
+    } catch (error) {
+      // Silently fail - status will remain 'not_started'
+    }
+  };
+
+  const handlePrepareSummary = async () => {
+    try {
+      setSummaryStatus('preparing');
+      const response = await fetch(`http://localhost:5000/api/companies/${companyName}/enhanced/prepare`, {
+        method: 'POST'
+      });
+
+      if (!response.ok) {
+        setSummaryStatus('error');
+        return;
+      }
+
+      // Poll for completion (max 300 polls * 2s = 600s = 10 minutes)
+      let pollCount = 0;
+      const pollInterval = setInterval(async () => {
+        pollCount++;
+        if (pollCount > 300) {
+          clearInterval(pollInterval);
+          setSummaryStatus('error');
+          return;
+        }
+
+        try {
+          const statusRes = await fetch(`http://localhost:5000/api/companies/${companyName}/enhanced/status`);
+          if (statusRes.ok) {
+            const data = await statusRes.json();
+            setSummaryStatus(data.status);
+
+            if (data.status === 'ready') {
+              clearInterval(pollInterval);
+              navigate(`/company/${encodeURIComponent(company.name)}/enhanced`);
+            } else if (data.status === 'error') {
+              clearInterval(pollInterval);
+            }
+          }
+        } catch (err) {
+          // Continue polling on errors
+        }
+      }, 2000);
+    } catch (error) {
+      console.error('Error preparing summary:', error);
+      setSummaryStatus('error');
     }
   };
 
@@ -91,7 +159,7 @@ const CompanyDetail = () => {
 
       <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
         <div className="flex items-start justify-between">
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-gray-900 flex items-center mb-4">
               <Building2 className="mr-3 text-blue-600" size={36} />
               {company.name}
@@ -113,6 +181,34 @@ const CompanyDetail = () => {
               </div>
             </div>
           </div>
+          <div className="ml-4 flex gap-3">
+            <button
+              onClick={() => {
+                if (summaryStatus === 'ready') {
+                  navigate(`/company/${encodeURIComponent(company.name)}/enhanced`);
+                } else if (summaryStatus === 'not_started' || summaryStatus === 'error') {
+                  handlePrepareSummary();
+                }
+              }}
+              disabled={summaryStatus === 'preparing'}
+              className={`px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transition-all shadow-md hover:shadow-lg ${summaryStatus === 'preparing'
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : summaryStatus === 'ready'
+                    ? 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white'
+                    : 'bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white'
+                }`}
+            >
+              <Sparkles size={20} className={summaryStatus === 'preparing' ? 'animate-spin' : ''} />
+              {summaryStatus === 'preparing' ? 'Preparing...' : summaryStatus === 'ready' ? 'View Summary' : 'Prepare Summary'}
+            </button>
+            <button
+              onClick={() => navigate(`/compare/${encodeURIComponent(company.name)}`)}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transition-all shadow-md hover:shadow-lg"
+            >
+              <TrendingUp size={20} />
+              Compare Classifiers
+            </button>
+          </div>
         </div>
       </div>
 
@@ -123,23 +219,21 @@ const CompanyDetail = () => {
             <button
               key={index}
               onClick={() => setSelectedSource(index)}
-              className={`p-4 border-2 rounded-lg text-left transition ${
-                selectedSource === index
+              className={`p-4 border-2 rounded-lg text-left transition ${selectedSource === index
                   ? 'border-blue-600 bg-blue-50'
                   : 'border-gray-200 hover:border-gray-300'
-              }`}
+                }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <span
-                  className={`badge ${
-                    source.type === 'pdf'
+                  className={`badge ${source.type === 'pdf'
                       ? 'badge-pdf'
                       : source.type === 'html'
-                      ? 'badge-html'
-                      : source.type === 'url'
-                      ? 'badge-url'
-                      : 'badge-text'
-                  }`}
+                        ? 'badge-html'
+                        : source.type === 'url'
+                          ? 'badge-url'
+                          : 'badge-text'
+                    }`}
                 >
                   {source.type.toUpperCase()}
                 </span>
