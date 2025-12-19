@@ -24,44 +24,69 @@ const Dashboard = () => {
     }
   };
 
+  const StatCard = ({ label, value, description, icon: Icon, colorClass }) => (
+    <div className="bg-white dark:bg-infynd-card-dark rounded-xl p-6 shadow-bento hover:shadow-bento-hover transition-all duration-300 border border-slate-100 dark:border-slate-700 group">
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">{label}</p>
+          <h3 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">{value}</h3>
+          <p className="text-xs text-slate-400 dark:text-slate-500">{description}</p>
+        </div>
+        <div className={`p-3 rounded-lg ${colorClass} bg-opacity-10 group-hover:scale-110 transition-transform duration-300`}>
+          <Icon className={colorClass.replace('bg-', 'text-')} size={24} />
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <div>
-      <div className="mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-              <Building2 className="mr-3 text-blue-600" size={36} />
-              Company Dashboard
-            </h1>
-            <p className="text-gray-600 mt-2">
-              Manage and view all extracted company data in one place
-            </p>
-          </div>
-          <div className="hidden md:flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg">
-            <Sparkles size={18} />
-            <span className="text-sm font-medium">Stage 1: Data Extraction Complete</span>
-          </div>
+    <div className="space-y-8">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center tracking-tight">
+            <Building2 className="mr-3 text-primary-600 dark:text-primary-400" size={32} />
+            Company Dashboard
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400 mt-2 text-lg">
+            Overview of your data extraction workflow
+          </p>
+        </div>
+        <div className="inline-flex items-center space-x-2 px-4 py-2 bg-infynd-success/10 text-infynd-success rounded-full border border-infynd-success/20">
+          <Sparkles size={16} />
+          <span className="text-sm font-semibold">System Operational</span>
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 mb-8 text-white">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <div className="text-3xl font-bold mb-1">{stats.companies}</div>
-            <div className="text-blue-100">Total Companies</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold mb-1">{stats.sources}</div>
-            <div className="text-blue-100">Total Sources</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold mb-1">{stats.types}</div>
-            <div className="text-blue-100">Source Types</div>
-          </div>
-        </div>
+      {/* Stats Bento Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StatCard
+          label="Total Companies"
+          value={stats.companies}
+          description="Active entities in database"
+          icon={Building2}
+          colorClass="bg-blue-600 text-blue-600"
+        />
+        <StatCard
+          label="Total Sources"
+          value={stats.sources}
+          description="Documents & URLs processed"
+          icon={Sparkles}
+          colorClass="bg-purple-600 text-purple-600"
+        />
+        <StatCard
+          label="Source Types"
+          value={stats.types}
+          description="Supported ingestion formats"
+          icon={Building2} // You might want a different icon here
+          colorClass="bg-emerald-500 text-emerald-500"
+        />
       </div>
 
-      <CompanyList />
+      {/* Main Content Area */}
+      <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl">
+        <CompanyList />
+      </div>
     </div>
   );
 };

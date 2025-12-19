@@ -131,7 +131,7 @@ const CompanyDetail = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -139,8 +139,8 @@ const CompanyDetail = () => {
   if (!company) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">Company not found</p>
-        <button onClick={() => navigate('/')} className="mt-4 btn-primary">
+        <p className="text-slate-500 dark:text-slate-400 text-lg">Company not found</p>
+        <button onClick={() => navigate('/dashboard')} className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
           Back to Dashboard
         </button>
       </div>
@@ -150,38 +150,39 @@ const CompanyDetail = () => {
   return (
     <div>
       <button
-        onClick={() => navigate('/')}
-        className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition"
+        onClick={() => navigate('/dashboard')}
+        className="flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-6 transition"
       >
         <ArrowLeft size={20} className="mr-2" />
         Back to Dashboard
       </button>
 
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-        <div className="flex items-start justify-between">
+      {/* Header Section */}
+      <div className="bg-white dark:bg-infynd-card-dark rounded-xl shadow-bento p-6 mb-8 border border-slate-100 dark:border-slate-700">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center mb-4">
-              <Building2 className="mr-3 text-blue-600" size={36} />
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center mb-4">
+              <Building2 className="mr-3 text-primary-600 dark:text-primary-400" size={36} />
               {company.name}
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="flex items-center text-gray-600">
-                <FileText size={18} className="mr-2 text-blue-500" />
+              <div className="flex items-center text-slate-600 dark:text-slate-400">
+                <FileText size={18} className="mr-2 text-primary-500" />
                 <span>
-                  <span className="font-semibold">{company.totalSources}</span> sources
+                  <span className="font-semibold text-slate-900 dark:text-slate-200">{company.totalSources}</span> sources
                 </span>
               </div>
-              <div className="flex items-center text-gray-600">
-                <Calendar size={18} className="mr-2 text-green-500" />
+              <div className="flex items-center text-slate-600 dark:text-slate-400">
+                <Calendar size={18} className="mr-2 text-infynd-success" />
                 <span>Created: {formatDate(company.created)}</span>
               </div>
-              <div className="flex items-center text-gray-600">
+              <div className="flex items-center text-slate-600 dark:text-slate-400">
                 <Calendar size={18} className="mr-2 text-orange-500" />
                 <span>Updated: {formatDate(company.lastUpdated)}</span>
               </div>
             </div>
           </div>
-          <div className="ml-4 flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <button
               onClick={() => {
                 if (summaryStatus === 'ready') {
@@ -192,10 +193,10 @@ const CompanyDetail = () => {
               }}
               disabled={summaryStatus === 'preparing'}
               className={`px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transition-all shadow-md hover:shadow-lg ${summaryStatus === 'preparing'
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : summaryStatus === 'ready'
-                    ? 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white'
-                    : 'bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white'
+                ? 'bg-slate-400 cursor-not-allowed text-white'
+                : summaryStatus === 'ready'
+                  ? 'bg-infynd-success text-white hover:bg-emerald-600'
+                  : 'bg-orange-500 text-white hover:bg-orange-600'
                 }`}
             >
               <Sparkles size={20} className={summaryStatus === 'preparing' ? 'animate-spin' : ''} />
@@ -203,7 +204,7 @@ const CompanyDetail = () => {
             </button>
             <button
               onClick={() => navigate(`/compare/${encodeURIComponent(company.name)}`)}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transition-all shadow-md hover:shadow-lg"
+              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transition-all shadow-md hover:shadow-lg"
             >
               <TrendingUp size={20} />
               Compare Classifiers
@@ -213,44 +214,44 @@ const CompanyDetail = () => {
       </div>
 
       <div className="mb-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Sources</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Sources</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {company.sources.map((source, index) => (
             <button
               key={index}
               onClick={() => setSelectedSource(index)}
-              className={`p-4 border-2 rounded-lg text-left transition ${selectedSource === index
-                  ? 'border-blue-600 bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300'
+              className={`p-4 border rounded-xl text-left transition-all duration-200 ${selectedSource === index
+                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 ring-1 ring-primary-500'
+                : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-infynd-card-dark hover:border-primary-300 dark:hover:border-slate-600'
                 }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <span
-                  className={`badge ${source.type === 'pdf'
-                      ? 'badge-pdf'
-                      : source.type === 'html'
-                        ? 'badge-html'
-                        : source.type === 'url'
-                          ? 'badge-url'
-                          : 'badge-text'
+                  className={`px-2 py-0.5 rounded text-xs font-medium ${source.type === 'pdf'
+                    ? 'bg-red-100 text-red-800'
+                    : source.type === 'html'
+                      ? 'bg-orange-100 text-orange-800'
+                      : source.type === 'url'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-gray-100 text-gray-800'
                     }`}
                 >
                   {source.type.toUpperCase()}
                 </span>
-                {selectedSource === index && <ExternalLink size={16} className="text-blue-600" />}
+                {selectedSource === index && <ExternalLink size={16} className="text-primary-600 dark:text-primary-400" />}
               </div>
-              <div className="font-medium text-gray-900 text-sm truncate">{source.title}</div>
-              <div className="text-xs text-gray-500 mt-1">{formatDate(source.extracted_at)}</div>
+              <div className="font-medium text-slate-900 dark:text-white text-sm truncate">{source.title}</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{formatDate(source.extracted_at)}</div>
             </button>
           ))}
         </div>
       </div>
 
       {selectedSource !== null && company.sources[selectedSource] && (
-        <div>
+        <div className="bg-white dark:bg-infynd-card-dark rounded-xl shadow-bento border border-slate-100 dark:border-slate-700 overflow-hidden">
           {loadingDocument ? (
             <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
             </div>
           ) : documentData ? (
             <SourceViewer
@@ -258,7 +259,7 @@ const CompanyDetail = () => {
               documentData={documentData}
             />
           ) : (
-            <div className="text-center py-12 text-gray-500">
+            <div className="text-center py-12 text-slate-500">
               Failed to load document data
             </div>
           )}

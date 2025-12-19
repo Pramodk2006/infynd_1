@@ -30,53 +30,58 @@ const ClassificationComparison = ({ companyName }) => {
     }
   };
 
-  const ResultCard = ({ title, data, success, error: methodError, color }) => (
-    <div className={`bg-white rounded-lg shadow-md p-6 border-l-4 ${color}`}>
-      <h3 className="text-xl font-bold mb-4">{title}</h3>
-      
+  const ResultCard = ({ title, data, success, error: methodError, color, badgeColor }) => (
+    <div className={`bg-white dark:bg-infynd-card-dark rounded-xl shadow-bento border-l-4 ${color} p-6 border-t border-r border-b border-slate-100 dark:border-slate-700 h-full flex flex-col`}>
+      <h3 className="text-xl font-bold mb-6 text-slate-800 dark:text-white flex items-center justify-between">
+        {title}
+        {success && data && <span className={`text-xs px-2 py-1 rounded-full ${badgeColor} bg-opacity-20 text-opacity-100`}>Active</span>}
+      </h3>
+
       {methodError && (
-        <div className="bg-red-50 border border-red-200 rounded p-3 mb-4">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-4">
           <div className="flex items-start gap-2">
             <AlertCircle className="text-red-500 flex-shrink-0 mt-0.5" size={18} />
-            <div className="text-sm text-red-700">{methodError}</div>
+            <div className="text-sm text-red-700 dark:text-red-300">{methodError}</div>
           </div>
         </div>
       )}
 
       {success && data && data.final_prediction && (
-        <div className="space-y-3">
+        <div className="space-y-4 flex-1">
           <div className="flex items-center gap-2 mb-4">
-            <CheckCircle className="text-green-500" size={20} />
-            <span className="text-green-600 font-medium">Classification Complete</span>
+            <CheckCircle className="text-infynd-success" size={20} />
+            <span className="text-infynd-success font-medium">Classification Complete</span>
           </div>
 
-          <div className="space-y-2">
-            <div className="bg-gray-50 p-3 rounded">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Sector</div>
-              <div className="font-semibold text-lg">{data.final_prediction.sector}</div>
+          <div className="space-y-3">
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5 font-semibold">Sector</div>
+              <div className="font-bold text-lg text-slate-900 dark:text-white">{data.final_prediction.sector}</div>
             </div>
 
-            <div className="bg-gray-50 p-3 rounded">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Industry</div>
-              <div className="font-semibold">{data.final_prediction.industry}</div>
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5 font-semibold">Industry</div>
+              <div className="font-semibold text-slate-800 dark:text-slate-200">{data.final_prediction.industry}</div>
             </div>
 
-            <div className="bg-gray-50 p-3 rounded">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Sub-Industry</div>
-              <div className="font-semibold">{data.final_prediction.sub_industry}</div>
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5 font-semibold">Sub-Industry</div>
+              <div className="font-semibold text-slate-800 dark:text-slate-200">{data.final_prediction.sub_industry}</div>
             </div>
 
-            <div className="bg-blue-50 p-3 rounded flex items-center justify-between">
-              <div className="text-xs text-gray-500 uppercase tracking-wide">Confidence</div>
-              <div className="font-bold text-blue-600">
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl flex items-center justify-between border border-blue-100 dark:border-blue-800">
+              <div className="text-xs text-blue-600 dark:text-blue-300 uppercase tracking-wide font-semibold">Confidence</div>
+              <div className="font-bold text-blue-600 dark:text-blue-300 text-lg">
                 {(data.final_prediction.confidence * 100).toFixed(1)}%
               </div>
             </div>
 
             {data.final_prediction.sic_code && (
-              <div className="bg-gray-50 p-3 rounded">
-                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">SIC Code</div>
-                <div className="font-mono text-sm">{data.final_prediction.sic_code}</div>
+              <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+                <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5 font-semibold">SIC Code</div>
+                <div className="font-mono text-sm text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 px-2 py-1 rounded inline-block border border-slate-200 dark:border-slate-700">
+                  {data.final_prediction.sic_code}
+                </div>
               </div>
             )}
           </div>
@@ -85,43 +90,45 @@ const ClassificationComparison = ({ companyName }) => {
 
       {success && data && data.sector && (
         // Ollama format
-        <div className="space-y-3">
+        <div className="space-y-4 flex-1">
           <div className="flex items-center gap-2 mb-4">
-            <CheckCircle className="text-green-500" size={20} />
-            <span className="text-green-600 font-medium">Classification Complete</span>
+            <CheckCircle className="text-infynd-success" size={20} />
+            <span className="text-infynd-success font-medium">Classification Complete</span>
           </div>
 
-          <div className="space-y-2">
-            <div className="bg-gray-50 p-3 rounded">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Sector</div>
-              <div className="font-semibold text-lg">{data.sector}</div>
+          <div className="space-y-3">
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5 font-semibold">Sector</div>
+              <div className="font-bold text-lg text-slate-900 dark:text-white">{data.sector}</div>
             </div>
 
-            <div className="bg-gray-50 p-3 rounded">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Industry</div>
-              <div className="font-semibold">{data.industry}</div>
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5 font-semibold">Industry</div>
+              <div className="font-semibold text-slate-800 dark:text-slate-200">{data.industry}</div>
             </div>
 
-            <div className="bg-gray-50 p-3 rounded">
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Sub-Industry</div>
-              <div className="font-semibold">{data.sub_industry}</div>
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl">
+              <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5 font-semibold">Sub-Industry</div>
+              <div className="font-semibold text-slate-800 dark:text-slate-200">{data.sub_industry}</div>
             </div>
 
-            <div className="bg-blue-50 p-3 rounded flex items-center justify-between">
-              <div className="text-xs text-gray-500 uppercase tracking-wide">Confidence</div>
-              <div className="font-bold text-blue-600">
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl flex items-center justify-between border border-blue-100 dark:border-blue-800">
+              <div className="text-xs text-blue-600 dark:text-blue-300 uppercase tracking-wide font-semibold">Confidence</div>
+              <div className="font-bold text-blue-600 dark:text-blue-300 text-lg">
                 {(data.confidence * 100).toFixed(1)}%
               </div>
             </div>
 
             {data.alternatives && data.alternatives.length > 0 && (
-              <div className="mt-4">
-                <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Top Alternatives</div>
-                <div className="space-y-1">
+              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+                <div className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3 font-semibold">Top Alternatives</div>
+                <div className="space-y-2">
                   {data.alternatives.slice(0, 3).map((alt, idx) => (
-                    <div key={idx} className="text-sm bg-gray-50 p-2 rounded flex justify-between">
-                      <span>{alt.sub_industry}</span>
-                      <span className="text-gray-500">{(alt.similarity * 100).toFixed(1)}%</span>
+                    <div key={idx} className="text-sm bg-slate-50 dark:bg-slate-800/30 p-2.5 rounded-lg flex justify-between items-center">
+                      <span className="text-slate-700 dark:text-slate-300">{alt.sub_industry}</span>
+                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                        {(alt.similarity * 100).toFixed(1)}%
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -132,7 +139,10 @@ const ClassificationComparison = ({ companyName }) => {
       )}
 
       {!success && !methodError && (
-        <div className="text-gray-400 text-center py-8">
+        <div className="text-slate-400 dark:text-slate-500 text-center py-12 flex-1 flex flex-col justify-center items-center">
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-full mb-3">
+            <TrendingUp size={24} className="opacity-50" />
+          </div>
           Click "Run Comparison" to classify
         </div>
       )}
@@ -140,19 +150,19 @@ const ClassificationComparison = ({ companyName }) => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold mb-2">Classification Comparison</h2>
-        <p className="text-gray-600">
-          Compare Top-K Hierarchical and Ollama (Embedding + LLM) classifiers for <span className="font-semibold">{companyName}</span>
-        </p>
-      </div>
+    <div className="max-w-7xl mx-auto p-6 space-y-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 className="text-3xl font-bold mb-2 text-slate-900 dark:text-white tracking-tight">Classification Comparison</h2>
+          <p className="text-slate-600 dark:text-slate-400">
+            Compare Top-K Hierarchical and Ollama (Embedding + LLM) classifiers for <span className="font-bold text-primary-600 dark:text-primary-400">{companyName}</span>
+          </p>
+        </div>
 
-      <div className="mb-6">
         <button
           onClick={runComparison}
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+          className="bg-primary-600 hover:bg-primary-700 disabled:bg-slate-400 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-primary-500/25 active:scale-95"
         >
           {loading ? (
             <>
@@ -169,38 +179,41 @@ const ClassificationComparison = ({ companyName }) => {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-          <div className="flex items-start gap-2">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 animate-fade-in">
+          <div className="flex items-start gap-3">
             <AlertCircle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
             <div>
-              <div className="font-semibold text-red-700">Error</div>
-              <div className="text-sm text-red-600">{error}</div>
+              <div className="font-bold text-red-700 dark:text-red-400">Error</div>
+              <div className="text-sm text-red-600 dark:text-red-300">{error}</div>
             </div>
           </div>
         </div>
       )}
 
       {result && (
-        <>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <div className="animate-fade-in-up space-y-8">
+          <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
             <div className="text-sm">
-              <div className="font-semibold mb-2">Company Text</div>
-              <div className="text-gray-700">
-                <span className="font-mono text-xs text-gray-500">{result.text_length} characters</span>
-                <div className="mt-2 text-sm bg-white p-3 rounded border">
-                  {result.text_preview}...
-                </div>
+              <div className="font-bold text-blue-900 dark:text-blue-100 mb-2 flex items-center justify-between">
+                <span>Analyzed Text Content</span>
+                <span className="font-mono text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-2 py-1 rounded">
+                  {result.text_length} characters
+                </span>
+              </div>
+              <div className="mt-2 text-sm bg-white dark:bg-slate-900 p-4 rounded-lg border border-blue-100 dark:border-slate-700 text-slate-600 dark:text-slate-300 leading-relaxed font-mono">
+                {result.text_preview}...
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
             <ResultCard
               title="Top-K Hierarchical Classifier"
               data={result.topk.result}
               success={result.topk.success}
               error={result.topk.error}
               color="border-purple-500"
+              badgeColor="bg-purple-500 text-purple-700"
             />
 
             <ResultCard
@@ -208,15 +221,17 @@ const ClassificationComparison = ({ companyName }) => {
               data={result.ollama.result}
               success={result.ollama.success}
               error={result.ollama.error}
-              color="border-green-500"
+              color="border-emerald-500"
+              badgeColor="bg-emerald-500 text-emerald-700"
             />
           </div>
 
-          <div className="mt-6 bg-gray-50 rounded-lg p-4 text-xs text-gray-500">
-            <div className="font-semibold mb-1">Classification completed at:</div>
-            <div className="font-mono">{new Date(result.timestamp).toLocaleString()}</div>
+          <div className="bg-slate-50 dark:bg-slate-800/30 rounded-lg p-3 text-xs text-slate-400 dark:text-slate-500 flex justify-end items-center gap-2">
+            <Clock size={14} />
+            <span className="font-medium">Classification completed at:</span>
+            <span className="font-mono">{new Date(result.timestamp).toLocaleString()}</span>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
